@@ -1,0 +1,8 @@
+node_modules
+artifacts
+cache
+coverage*
+gasReporterOutput.json
+prettier.config.js
+.eslintrc.js
+index.js

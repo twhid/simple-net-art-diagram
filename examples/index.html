@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Simple Net Art Diagram examples</title>
+    <script src="../index.js">
+        // Including the script adds `SimpleNetArtDiagram` to the global scope
+    </script>
+  </head>
+  <body>
+    <h2>Load async on client from blockchain</h2>
+    <p>Requires a local JSON-RPC endpoint, see the readme.</p>
+    <div id="blockchain"></div>
+    <script>
+        async function main() {
+            const rpcEndpoint = "http://127.0.0.1:8545";
+            const img = new Image();
+            // `SimpleNetArtDiagram` is set in the global scope
+            img.src = await SimpleNetArtDiagram.getData(rpcEndpoint);
+            document.getElementById("blockchain").appendChild(img);
+        }
+        main();
+    </script>
+    
+    <h2>Load sync on client data uri in package</h2>
+    <p>
+        Note: see tests. There is a test to ensure the solidity data uri 
+        and the package data uri are identical.
+    </p>
+    <div id="dataUri"></div>
+    <script>
+        function main() {
+            const img = new Image()
+            // `SimpleNetArtDiagram` is set in the global scope
+            img.src = SimpleNetArtDiagram.dataUri;
+            document.getElementById("dataUri").appendChild(img);
+        }
+        main();
+    </script>
+
+    <h2>Load from server</h2>
+    <p>
+        Instructions: In this repo, run <code>node examples/node-server.js</code> 
+        and then reload this page. Node 18+ is required.
+    </p>
+    <img src="http://127.0.0.1:8081/" />
+  </body>
+</html>
