@@ -1,4 +1,5 @@
 //SPDX-License-Identifier: MIT
+//SimpleNetArtDiagram.sol by MTAA
 pragma solidity ^0.8.13;
 
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
