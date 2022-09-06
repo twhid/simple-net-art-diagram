@@ -55,7 +55,6 @@ SimpleNetArtDiagram.dataUri; // "data:image/gif;base64,R0lGODlh1wHuAMQAAP///...e
         "address": "<contract address>",
         "transactionHash": "<deploy transaction hash>"
     },
-    // etc
 }
 ```
 There is also a helper function exported which helps to retrieve the data URI directly from the blockchain.
