@@ -15,10 +15,11 @@ MTAA will deploy a smart contract to the Ethereum blockchain which embeds a base
 ### Addresses
 The contract has not been deployed yet.
 
-### Edition
+### NFT Edition
 The artists will mint three non-fungible tokens of The Simple Net Art Diagram. These tokens will be entirely on the Ethereum blockchain with no external dependencies such as IPFS or Arweave. See the [contracts](/contracts/) section of this repo for the source code.
 
 ### Usage
+#### smart contract
 The smart contract exposes two functions that may be used to render The Simple Net Art Diagram directly from the blockchian. 
 
 * `SIMPLE_NET_ART_DIAGRAM` &mdash; returns a base64-encoded data URI (the signature is `0xea99b750`)
@@ -26,15 +27,54 @@ The smart contract exposes two functions that may be used to render The Simple N
 
 #### npm package
 
-
 **Install**
 
 `yarn add simple-net-art-diagram`
 
-Please see the examples directory for usage.
+Require in Node.js:
+```js
+const SimpleNetArtDiagram = require("simple-net-art-diagram");
+```
+or, in the browser, which adds a `SimpleNetArtDiagram` global variable.
+```html
+<script src='./node_modules/simple-net-art-diagram/index.js'></script>
+```
+Note: We're not providing a CDN URL for the package.
+
+The smart contract ABI, addresses, `SIMPLE_NET_ART_DIAGRAM` function signature, and the data URI are available via properties on the exported object:
+```js
+SimpleNetArtDiagram.abi; // [{"inputs": [],"stateMutability": "nonpayable",}...etc.
+SimpleNetArtDiagram.addresses; // { "31337": { "address": "0x5FbDB2313...etc"
+SimpleNetArtDiagram.functionSignature; // 0xea99b750
+SimpleNetArtDiagram.dataUri; // "data:image/gif;base64,R0lGODlh1wHuAMQAAP///...etc
+```
+`addresses.json` is an object with chain IDs as keys:
+```json
+{
+    "<chain id>": {
+        "address": "<contract address>",
+        "transactionHash": "<deploy transaction hash>"
+    },
+    // etc
+}
+```
+There is also a helper function exported which helps to retrieve the data URI directly from the blockchain.
+
+```ts
+SimpleNetArtDiagram.getData(rpcEndpoint: string): Promise<string>
+
+// example
+(async function () {
+    const rpcEndpoint = "http://127.0.0.1:8545";
+    const img = new Image();
+    img.src = await SimpleNetArtDiagram.getData(rpcEndpoint);
+    body.appendChild(img);
+})();
+```
+See the [examples](./examples/) directory for more.
 
 ## Other formats
-You may find other formats on IPFS:
+Find other formats of The Simple Net Art Diagram on IPFS
 * [GIF (CID: Qmdd32V1TCULHoomWaC5mKpY46CpYMG3JwskGy32S9BSRE)](https://gateway.pinata.cloud/ipfs/Qmdd32V1TCULHoomWaC5mKpY46CpYMG3JwskGy32S9BSRE)
 * [SVG (CID: Qmc3EJTCrXSxU5oRrx8zr7zkbugiZdAkbpxnu8QoDB1MB6)](https://gateway.pinata.cloud/ipfs/Qmc3EJTCrXSxU5oRrx8zr7zkbugiZdAkbpxnu8QoDB1MB6)
 * [PDF (CID: QmejeawqoTqZGN8sEk6ruJAj7aLuWkvZmkHMoK1TZ2y3Vz)](https://gateway.pinata.cloud/ipfs/QmejeawqoTqZGN8sEk6ruJAj7aLuWkvZmkHMoK1TZ2y3Vz)
