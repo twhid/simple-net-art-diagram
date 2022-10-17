@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Simple Net Art Diagram examples</title>
+    </head>
+    <script src="../dist/index.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+    <body>
+        <h1>Using Ethers</h1>
+        <p>Requires a local JSON-RPC endpoint, please see the readme.</p>
+        <div><img id="snad" /></div>
+    </body>
+    <script>
+        const { providers: { JsonRpcProvider }, Contract } = ethers;
+        const { addresses, abi } = Simple_Net_Art_Diagram;
+        const snad = new Contract(addresses["31337"].address, abi, new JsonRpcProvider());
+        (async () => {
+            document.getElementById("snad").src = await snad.SIMPLE_NET_ART_DIAGRAM();
+        })();
+    </script>
+</html>

@@ -2,39 +2,29 @@
 <html>
   <head>
     <title>Simple Net Art Diagram examples</title>
-    <script src="../index.js">
-        // Including the script adds `SimpleNetArtDiagram` to the global scope
+    <script src="../dist/index.js">
+        // Including the script adds `Simple_Net_Art_Diagram` to the global scope
     </script>
   </head>
   <body>
-    <h2>Load async on client from blockchain</h2>
-    <p>Requires a local JSON-RPC endpoint, see the readme.</p>
-    <div id="blockchain"></div>
+    <h2>Load async on client from the blockchain</h2>
+    <p>Requires a local JSON-RPC endpoint, please see the readme.</p>
+    <div><img id="blockchain" /></div>
     <script>
-        async function main() {
-            const rpcEndpoint = "http://127.0.0.1:8545";
-            const img = new Image();
-            // `SimpleNetArtDiagram` is set in the global scope
-            img.src = await SimpleNetArtDiagram.getData(rpcEndpoint);
-            document.getElementById("blockchain").appendChild(img);
-        }
-        main();
+        (async () => {
+            const { fetchData } = Simple_Net_Art_Diagram;
+            document.getElementById("blockchain").src = await fetchData("http://127.0.0.1:8545", "31337");
+        })();
     </script>
     
-    <h2>Load sync on client data uri in package</h2>
+    <h2>Load sync on client with data URI in JS package</h2>
     <p>
         Note: see tests. There is a test to ensure the solidity data uri 
         and the package data uri are identical.
     </p>
-    <div id="dataUri"></div>
+    <div><img id="dataUri" /></div>
     <script>
-        function main() {
-            const img = new Image()
-            // `SimpleNetArtDiagram` is set in the global scope
-            img.src = SimpleNetArtDiagram.dataUri;
-            document.getElementById("dataUri").appendChild(img);
-        }
-        main();
+        document.getElementById("dataUri").src = Simple_Net_Art_Diagram.dataUri;
     </script>
 
     <h2>Load from server</h2>

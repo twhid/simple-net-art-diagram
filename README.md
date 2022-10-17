@@ -23,9 +23,9 @@ The artists will mint three non-fungible tokens of The Simple Net Art Diagram. T
 The smart contract exposes two functions that may be used to render The Simple Net Art Diagram directly from the blockchian. 
 
 * `SIMPLE_NET_ART_DIAGRAM` &mdash; returns a base64-encoded data URI (the signature is `0xea99b750`)
-* `tokenURI` returns base64-encoded ERC-721 compliant metadata JSON, with the a data uri in the `image` field
+* `tokenURI` returns base64-encoded ERC-721 compliant metadata JSON, with the data uri in the `image` field
 
-#### npm package
+## npm package
 
 **Install**
 
@@ -33,20 +33,20 @@ The smart contract exposes two functions that may be used to render The Simple N
 
 Require in Node.js:
 ```js
-const SimpleNetArtDiagram = require("simple-net-art-diagram");
+const Simple_Net_Art_Diagram = require("simple-net-art-diagram");
 ```
-or, in the browser, which adds a `SimpleNetArtDiagram` global variable.
+or, in the browser, which adds a `Simple_Net_Art_Diagram` global variable.
 ```html
-<script src='./node_modules/simple-net-art-diagram/index.js'></script>
+<script src='./node_modules/simple-net-art-diagram/dist/index.js'></script>
 ```
 Note: We're not providing a CDN URL for the package.
 
 The smart contract ABI, addresses, `SIMPLE_NET_ART_DIAGRAM` function signature, and the data URI are available via properties on the exported object:
 ```js
-SimpleNetArtDiagram.abi; // [{"inputs": [],"stateMutability": "nonpayable",}...etc.
-SimpleNetArtDiagram.addresses; // { "31337": { "address": "0x5FbDB2313...etc"
-SimpleNetArtDiagram.functionSignature; // 0xea99b750
-SimpleNetArtDiagram.dataUri; // "data:image/gif;base64,R0lGODlh1wHuAMQAAP///...etc
+Simple_Net_Art_Diagram.abi; // [{"inputs": [],"stateMutability": "nonpayable",}...etc.
+Simple_Net_Art_Diagram.addresses; // { "31337": { "address": "0x5FbDB2313...etc"
+Simple_Net_Art_Diagram.functionSignature; // 0xea99b750
+Simple_Net_Art_Diagram.dataUri; // "data:image/gif;base64,R0lGODlh1wHuAMQAAP///...etc
 ```
 `addresses.json` is an object with chain IDs as keys:
 ```json
@@ -60,17 +60,27 @@ SimpleNetArtDiagram.dataUri; // "data:image/gif;base64,R0lGODlh1wHuAMQAAP///...e
 There is also a helper function exported which helps to retrieve the data URI directly from the blockchain.
 
 ```ts
-SimpleNetArtDiagram.getData(rpcEndpoint: string): Promise<string>
+Simple_Net_Art_Diagram.fetchData(rpcEndpoint: string, chainId: string): Promise<string>
 
 // example
 (async function () {
-    const rpcEndpoint = "http://127.0.0.1:8545";
     const img = new Image();
-    img.src = await SimpleNetArtDiagram.getData(rpcEndpoint);
+    img.src = await Simple_Net_Art_Diagram.fetchData("http://127.0.0.1:8545", "31337");
     body.appendChild(img);
 })();
 ```
 See the [examples](./examples/) directory for more.
+
+## Tests
+To run the tests, first start a hardhat node:
+```
+yarn hardhat node
+```
+And then in another terminal run:
+```
+yarn test
+```
+This runs both the smart contract tests and the helper lib tests.
 
 ## Other formats
 Find other formats of The Simple Net Art Diagram on IPFS

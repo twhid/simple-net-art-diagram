@@ -23,14 +23,14 @@ async function main() {
     console.log("Deployed to:", snad.address, await snad.name());
 
     // Write ABI file
-    const abiPath = join(__dirname, `../${CONTRACT_NAME}.json`);
+    const abiPath = join(__dirname, `../src/${CONTRACT_NAME}.json`);
     const artifact = artifacts.readArtifactSync(CONTRACT_NAME);
     // Overwrite the ABI each time the contract is deployed
     writeFileSync(abiPath, JSON.stringify({ contractName: artifact.contractName, abi: artifact.abi }, null, 4));
     console.log("ABI written successfully");
 
     // Write address file
-    const addressFilePath = join(__dirname, `../addresses.json`);
+    const addressFilePath = join(__dirname, `../src/addresses.json`);
     let addresses: Record<string, Addresses> & {} = {};
     if (existsSync(addressFilePath)) {
         const json = readFileSync(addressFilePath).toString("utf-8");

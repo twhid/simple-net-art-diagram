@@ -2,9 +2,13 @@
   "name": "simple-net-art-diagram",
   "version": "1.0.0",
   "description": "The Simple Net Art Diagram: the simplest possible net art diagram.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": ["dist"],
   "author": "Tim Whidden <twhid@twhid.com>",
   "license": "MIT",
+  "engines": {
+     "node": ">=16.0.0"
+  },
   "devDependencies": {
     "@ethersproject/abi": "^5.4.7",
     "@ethersproject/bytes": "^5.0.0",
@@ -37,22 +41,22 @@
     "prettier-plugin-solidity": "^1.0.0-beta.13",
     "solidity-coverage": "^0.7.21",
     "truffle": "^5.5.20",
-    "ts-loader": "^9.3.1",
+    "ts-loader": "^9.4.1",
     "ts-node": "^10.9.1",
     "typechain": "^8.1.0",
     "typescript": "^4.8.2",
-    "webpack": "^5.73.0",
+    "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0"
   },
   "scripts": {
-    "build": "webpack",
+    "build": "webpack && node scripts/build.js",
     "hh": "TS_NODE_TRANSPILE_ONLY=1 hardhat",
     "compile": "TS_NODE_TRANSPILE_ONLY=1 hardhat compile",
     "dashboard": "truffle dashboard",
     "deploy": "TS_NODE_TRANSPILE_ONLY=1 hardhat run ./scripts/deploy.ts --network truffle-dashboard",
     "deploy:local": "CHAIN_ID=31337 TS_NODE_TRANSPILE_ONLY=1 hardhat run ./scripts/deploy.ts --network localhost",
     "deploy:goe": "CHAIN_ID=5 npm run deploy",
-    "test": "TS_NODE_TRANSPILE_ONLY=1 hardhat test",
-    "test:gas": "REPORT_GAS=1 TS_NODE_TRANSPILE_ONLY=1 hardhat test"
+    "test": "TS_NODE_TRANSPILE_ONLY=1 npm run deploy:local && NODE_NO_WARNINGS=1 hardhat test",
+    "test:gas": "REPORT_GAS=1 TS_NODE_TRANSPILE_ONLY=1 hardhat test \"test/contract.ts\""
   }
 }
