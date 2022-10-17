@@ -90,17 +90,22 @@ describe("Simple Net Art Diagram", () => {
         await mintMax();
         // and then expect invalid token IDs to revert
         await expect(snad.tokenURI(0)).to.be.revertedWith("ERC721: invalid token ID");
-        await expect(snad.tokenURI((await snad.totalSupply()).add(1))).to.be.revertedWith("ERC721: invalid token ID");
+        await expect(snad.tokenURI((await snad.totalSupply()).add(1))).to.be.revertedWith(
+            "ERC721: invalid token ID"
+        );
     });
 
     it("transfers tokens", async () => {
-        const { mintMax, snad, tokenContractOwner, otherSigner } = await loadFixture(snadTestFixture);
+        const { mintMax, snad, tokenContractOwner, otherSigner } = await loadFixture(
+            snadTestFixture
+        );
         await mintMax();
         const from = await tokenContractOwner.getAddress();
         const to = await otherSigner.getAddress();
         // this is testing OZ contracts but wanted to exercise it
         // for my own piece of mind
-        const safeTransferFrom = snad.connect(tokenContractOwner)["safeTransferFrom(address,address,uint256)"];
+        const safeTransferFrom =
+            snad.connect(tokenContractOwner)["safeTransferFrom(address,address,uint256)"];
         await safeTransferFrom(from, to, 1);
         expect(await snad.ownerOf(1)).to.equal(to);
     });
@@ -117,7 +122,9 @@ describe("Simple Net Art Diagram", () => {
         await snad.connect(tokenContractOwner).burn(3);
         // all tokens have been burnt
         expect(0).to.equal(await snad.totalSupply());
-        await expect(snad.connect(tokenContractOwner).burn(1)).to.be.revertedWith("ERC721: invalid token ID");
+        await expect(snad.connect(tokenContractOwner).burn(1)).to.be.revertedWith(
+            "ERC721: invalid token ID"
+        );
     });
 
     it("returns ERC2981 royalty", async () => {
