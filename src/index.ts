@@ -9,11 +9,11 @@ let data: string | null = null;
 
 export async function fetchData(rpcEndpoint: string, chainId: ChainId): Promise<typeof data> {
     if (!rpcEndpoint) {
-        throw new Error(`SimpleNetArtDiagram: Must pass an 'rpcEndpoint'`);
+        throw new Error(`SimpleNetArtDiagram: Must pass 'rpcEndpoint'`);
     }
 
     if (!chainId) {
-        throw new Error(`SimpleNetArtDiagram: Must pass an 'chainId'`);
+        throw new Error(`SimpleNetArtDiagram: Must pass 'chainId'`);
     }
 
     if (typeof fetch === "undefined") {
