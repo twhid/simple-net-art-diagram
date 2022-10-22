@@ -6,7 +6,9 @@ let data;
 // 1. Load base64-encoded data from JSON-RPC node
 // (Requires Node 18 because fetchData uses fetch.)
 (async function () {
-    [, data] = (await Simple_Net_Art_Diagram.fetchData("http://127.0.0.1:8545", "31337")).split(",");
+    const endPoint = "http://127.0.0.1:8545";
+    const chainId = "31337";
+    [, data] = (await Simple_Net_Art_Diagram.fetchData(endPoint, chainId)).split(",");
 })();
 
 // The data URI is also included in the npm package;
