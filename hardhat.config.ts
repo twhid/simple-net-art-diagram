@@ -25,8 +25,8 @@ const config: HardhatUserConfig = {
         goerli: {
             url: process.env.GOERLI_URL,
         },
-        rinkeby: {
-            url: process.env.RINKEBY_URL,
+        mainnet: {
+            url: process.env.MAINNET_URL,
         },
     },
     gasReporter: {
